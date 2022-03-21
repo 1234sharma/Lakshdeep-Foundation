@@ -15,9 +15,9 @@ public class TestController {
 		return new ModelAndView("welcome");
 	}
 
-	@RequestMapping(value = "/yes", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String yes() {
 		System.out.println("yessssss");
-		return "welcome";
+		return "/common/navbar";
 	}
 }

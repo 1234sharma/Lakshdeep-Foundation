@@ -1,0 +1,12 @@
+@charset "ISO-8859-1";
+
+#titletrans {
+
+  animation: mymove 5s ;
+  
+}
+
+@keyframes mymove {
+  0% {font-size: 2px;}
+  100%{font-sze:20px};
+}
