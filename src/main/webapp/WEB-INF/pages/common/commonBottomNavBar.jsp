@@ -18,7 +18,7 @@
 </head>
 <body>
 
-    <footer class="fixed-bottom">
+    <footer class="" style="margin-top: auto">
         <div class="container-fluid bg-danger">
             <div class="row">
                 <div class="col text-light pt-2">

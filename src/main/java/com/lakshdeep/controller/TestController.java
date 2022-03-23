@@ -20,4 +20,7 @@ public class TestController {
 		System.out.println("yessssss");
 		return "/common/navbar";
 	}
+	
+	
+	
 }
