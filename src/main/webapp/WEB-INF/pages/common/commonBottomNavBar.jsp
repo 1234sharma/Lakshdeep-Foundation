@@ -29,7 +29,7 @@
     background-color: rgba(0,0,0,0.4);
 }
 
-/* Modal Content */
+
 .modal-content {
    position: relative;
     top: -3rem;
