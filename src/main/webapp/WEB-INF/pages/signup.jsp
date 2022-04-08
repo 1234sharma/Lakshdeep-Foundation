@@ -63,7 +63,7 @@
 			</div>
 			<div class="form-group">
 				<label for="lastname">Last Name</label> <input name="lname"
-					style="width: 50%" type="text" class="form-control" id="lastname"
+					type="text" class="form-control" id="lastname"
 					placeholder="Enter Last Name" required>
 			</div>
 			<div class="form-group">
@@ -71,6 +71,15 @@
 					style="width: 50%" type="email" class="form-control"
 					id="inputEmail4" placeholder="Email" required>
 			</div>
+
+			<div class="form-group">
+				<label for="mobilenumber">Mobile No</label> <input type="tel"
+					style="width: 50%" name="mobileno" id="mobilenumber"
+					class="form-control" pattern="[0-9]{10}"
+					placeholder="10 digit number" title="Ten digits code" required />
+			</div>
+
+
 
 			<div class="form-group">
 				<label for="inputAddress">Address 1</label> <input name="addr1"
@@ -158,62 +167,68 @@
 
 	<script>
 		// form submit
-		$("#idform").submit(function(e) {
+		$("#idform")
+				.submit(
+						function(e) {
 
-			if ($("#notavail").attr("style") == "display:block") {
-				e.preventDefault(); // avoid to execute the actual submit of the form.
-				alert("Please Choose another username")
-			} else {
-				console.log("hello");
-				e.preventDefault(); // avoid to execute the actual submit of the form.
-				var fname = $("#firstname").val();
-				var lname = $("#lastname").val();
-				var email = $("#inputEmail4").val();
-				var addr1 = $("#inputAddress").val();
-				var addr2 = $("#inputAddress2").val();
-				var state = $("#inputState").val();
-				var city = $("#inputCity").val();
-				var pin = $("#inputZip").val();
-				var uname = $("#username").val();
-				var password = $("#psw").val();
+							if ($("#notavail").attr("style") == "display:block") {
+								e.preventDefault(); // avoid to execute the actual submit of the form.
+								alert("Please Choose another username")
+							} else {
+								console.log("hello");
+								e.preventDefault(); // avoid to execute the actual submit of the form.
+								var fname = $("#firstname").val();
+								var lname = $("#lastname").val();
+								var email = $("#inputEmail4").val();
+								var mobileno = $("#mobilenumber").val();
+								var addr1 = $("#inputAddress").val();
+								var addr2 = $("#inputAddress2").val();
+								var state = $("#inputState").val();
+								var city = $("#inputCity").val();
+								var pin = $("#inputZip").val();
+								var uname = $("#username").val();
+								var password = $("#psw").val();
 
-				console.log(fname);
-				var form = $(this);
+								console.log(fname);
+								var form = $(this);
 
-				var str = {
-					"fname" : fname,
-					"lname" : lname,
-					"email" : email,
-					"addr1" : addr1,
-					"addr2" : addr2,
-					"state" : state,
-					"city" : city,
-					"pin" : pin,
-					"uname" : uname,
-					"password" : password
-				};
+								var str = {
+									"fname" : fname,
+									"lname" : lname,
+									"email" : email,
+									"mobileno" : mobileno,
+									"addr1" : addr1,
+									"addr2" : addr2,
+									"state" : state,
+									"city" : city,
+									"pin" : pin,
+									"uname" : uname,
+									"password" : password
+								};
 
-				$.ajax({
-					type : "POST",
-					url : "/lakshdeep/signup",
-					data : JSON.stringify(str), // serializes the form's elements
-					contentType : "application/json",
-					success : function(data) {
+								$
+										.ajax({
+											type : "POST",
+											url : "/lakshdeep/signup",
+											data : JSON.stringify(str), // serializes the form's elements
+											contentType : "application/json",
+											success : function(data) {
 
-						// Ajax call completed successfully
-						alert("Form Submited Successfully" + data);
-						window.location="http://localhost:8082/lakshdeep/signinpage";
+												// Ajax call completed successfully
+												alert("Form Submited Successfully"
+														+ data);
+												window.location = "http://localhost:8082/lakshdeep/signinpage";
 
-					},
-					error : function(data) {
+											},
+											error : function(data) {
 
-						// Some error in ajax call
-						alert("some Error");
-					}
+												// Some error in ajax call
+												alert("some Error");
+											}
 
-				});
-			}
-		});
+										});
+							}
+						});
 
 		// username validation
 

@@ -13,6 +13,7 @@ public class UserRegistrationDetails implements Serializable {
 	String fname;
 	String lname;
 	String email;
+	String mobileno;
 	String addr1;
 	String addr2;
 	String state;
@@ -27,12 +28,13 @@ public class UserRegistrationDetails implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public UserRegistrationDetails(String fname, String lname, String email, String addr1, String addr2, String state,
-			String city, String pin, String uname, String password) {
-
+	public UserRegistrationDetails(String fname, String lname, String email, String mobileno, String addr1,
+			String addr2, String state, String city, String pin, String uname, String password) {
+		super();
 		this.fname = fname;
 		this.lname = lname;
 		this.email = email;
+		this.mobileno = mobileno;
 		this.addr1 = addr1;
 		this.addr2 = addr2;
 		this.state = state;
@@ -64,6 +66,14 @@ public class UserRegistrationDetails implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getMobileno() {
+		return mobileno;
+	}
+
+	public void setMobileno(String mobileno) {
+		this.mobileno = mobileno;
 	}
 
 	public String getAddr1() {
@@ -124,9 +134,9 @@ public class UserRegistrationDetails implements Serializable {
 
 	@Override
 	public String toString() {
-		return "UserRegistrationDetails [fname=" + fname + ", lname=" + lname + ", email=" + email + ", addr1=" + addr1
-				+ ", addr2=" + addr2 + ", state=" + state + ", city=" + city + ", pin=" + pin + ", uname=" + uname
-				+ ", password=" + password + "]";
+		return "UserRegistrationDetails [fname=" + fname + ", lname=" + lname + ", email=" + email + ", mobileno="
+				+ mobileno + ", addr1=" + addr1 + ", addr2=" + addr2 + ", state=" + state + ", city=" + city + ", pin="
+				+ pin + ", uname=" + uname + ", password=" + password + "]";
 	}
 
 }
