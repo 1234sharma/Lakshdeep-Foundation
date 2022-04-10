@@ -5,6 +5,7 @@ import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.lakshdeep.model.UserRegistrationDetails;
 import com.lakshdeep.service.EmailService;
 import com.lakshdeep.service.UserService;
+import com.razorpay.Order;
+import com.razorpay.RazorpayClient;
+import com.razorpay.RazorpayException;
 
 import io.swagger.models.HttpMethod;
 
@@ -100,5 +104,34 @@ public class UserController {
 		return new ResponseEntity<String>("Loginned Unsuccesfully", HttpStatus.BAD_REQUEST);
 
 	}
+	
+	@RequestMapping("/donationpage")
+	public String donationPage()
+	{
+	return "donationpage";	
+	}
+	
+	@RequestMapping(value = "/donationcheckout",method =RequestMethod.POST)
+	public ResponseEntity<String> donationCheckout(HttpServletRequest r) throws RazorpayException
+	{
+		
+	int amt=Integer.parseInt(r.getParameter("amt"));
+	
+    RazorpayClient client= new RazorpayClient("rzp_test_9ax0XALM5hECdE", "WtFeWLmtqDkBoGlrNvAOjKk6");
+	
+    JSONObject obj=new JSONObject();
+    obj.put("amount",amt*100);
+    obj.put("currency","INR");
+    obj.put("receipt","txn_"+new Random().nextInt(999999) );
+    
+    Order order=client.Orders.create(obj);
+    
+    System.out.println(order);
+    
+    
+	return new ResponseEntity<String>(order.toString(), HttpStatus.OK);	
+	}
+	
+	
 
 }

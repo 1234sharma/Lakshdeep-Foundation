@@ -13,6 +13,9 @@
 <link href="css/animationcss.css" rel="stylesheet">
 </head>
 <body>
+<%
+String username=(String)session.getAttribute("uname");
+%>
 	<div class="navb"
 		style="text-align: center; color: white; background-color: red; height: 100px">
 		<div id="titletrans" class="nav-title"
@@ -33,13 +36,23 @@
 		<div class="nav-links">
 			<a href="hello"><i class="fa fa-home"
 				aria-hidden="true"></i>Home</a> <a href="#">AboutUs</a> <a href="#"><i
-				class="fa fa-phone" aria-hidden="true"></i> ContactUs</a> <a
-				href="signuppage"><i class="fas fa-registered"
-				aria-hidden="true"></i>SignUp</a> <a href="signinpage"><i
-				class="fa fa-sign-in" aria-hidden="true"></i>UserLogin</a> <a href="#"><i
-				class="fa fa-sign-in" aria-hidden="true"></i>AdminLogin</a>
+				class="fa fa-phone" aria-hidden="true"></i> ContactUs</a>
+				<!-- comman tabs -->
+					<a href="donationpage"><i class="fa fa-sign-in" aria-hidden="true"></i>Donate</a>
+				<%if(username!=null){ %>
+				<!-- After login -->
+			
+				 <a href="logout"><i class="fas fa-registered" aria-hidden="true"></i>LogOut</a>
+				<%}else{ %>
+				<!-- Before login -->
+				 <a href="signuppage"><i class="fas fa-registered" aria-hidden="true"></i>SignUp</a>
+				 <a href="signinpage"><i class="fa fa-sign-in" aria-hidden="true"></i>UserLogin</a>
+				<a href="#"><i class="fa fa-sign-in" aria-hidden="true"></i>AdminLogin</a>
+				<%} %>
 		</div>
 	</div>
+	
+	<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 	
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	 crossorigin="anonymous"></script>
