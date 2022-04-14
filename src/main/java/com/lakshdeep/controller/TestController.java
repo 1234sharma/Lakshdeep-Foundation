@@ -23,14 +23,14 @@ public class TestController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String yes() {
 		System.out.println("yessssss");
-		return "/common/navbar";
+		return "welcome";
 	}
 
-	@RequestMapping(value = "/sendemail", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/sendemail", method = RequestMethod.GET)
 	public String senemailTest() {
 		System.out.println("yessssss");
 		// es.sendEmail();
 		return "/common/navbar";
 	}
-
+*/
 }

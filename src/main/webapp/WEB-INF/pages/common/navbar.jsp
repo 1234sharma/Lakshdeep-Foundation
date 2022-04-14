@@ -35,7 +35,7 @@ String username=(String)session.getAttribute("uname");
 
 		<div class="nav-links">
 			<a href="hello"><i class="fa fa-home"
-				aria-hidden="true"></i>Home</a> <a href="#">AboutUs</a> <a href="#"><i
+				aria-hidden="true"></i>Home</a> <a href="#">AboutUs</a> <a href="contactuspage"><i
 				class="fa fa-phone" aria-hidden="true"></i> ContactUs</a>
 				<!-- comman tabs -->
 					<a href="donationpage"><i class="fa fa-sign-in" aria-hidden="true"></i>Donate</a>

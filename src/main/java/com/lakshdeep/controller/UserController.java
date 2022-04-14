@@ -82,7 +82,8 @@ public class UserController {
 		}
 		int otp = new Random().nextInt(999999);
 		r.getSession().setAttribute("otp", otp);
-		eservice.sendEmail(userdetails.getEmail(), otp);
+		eservice.sendEmail(userdetails.getEmail(), "Verify Your Email with OTP",
+				"Please enter the given otp to login succefully " + otp);
 		return new ResponseEntity<String>("Loginned succesfully", HttpStatus.OK);
 	}
 
@@ -104,34 +105,66 @@ public class UserController {
 		return new ResponseEntity<String>("Loginned Unsuccesfully", HttpStatus.BAD_REQUEST);
 
 	}
-	
-	@RequestMapping("/donationpage")
-	public String donationPage()
-	{
-	return "donationpage";	
-	}
-	
-	@RequestMapping(value = "/donationcheckout",method =RequestMethod.POST)
-	public ResponseEntity<String> donationCheckout(HttpServletRequest r) throws RazorpayException
-	{
-		
-	int amt=Integer.parseInt(r.getParameter("amt"));
-	
-    RazorpayClient client= new RazorpayClient("rzp_test_9ax0XALM5hECdE", "WtFeWLmtqDkBoGlrNvAOjKk6");
-	
-    JSONObject obj=new JSONObject();
-    obj.put("amount",amt*100);
-    obj.put("currency","INR");
-    obj.put("receipt","txn_"+new Random().nextInt(999999) );
-    
-    Order order=client.Orders.create(obj);
-    
-    System.out.println(order);
-    
-    
-	return new ResponseEntity<String>(order.toString(), HttpStatus.OK);	
-	}
-	
-	
 
+	@RequestMapping("/donationpage")
+	public String donationPage() {
+		return "donationpage";
+	}
+
+	@RequestMapping(value = "/donationcheckout", method = RequestMethod.POST)
+	public ResponseEntity<String> donationCheckout(HttpServletRequest r) throws RazorpayException {
+
+		int amt = Integer.parseInt(r.getParameter("amt"));
+
+		RazorpayClient client = new RazorpayClient("rzp_test_9ax0XALM5hECdE", "WtFeWLmtqDkBoGlrNvAOjKk6");
+
+		JSONObject obj = new JSONObject();
+		obj.put("amount", amt * 100);
+		obj.put("currency", "INR");
+		obj.put("receipt", "txn_" + new Random().nextInt(999999));
+
+		Order order = client.Orders.create(obj);
+
+		System.out.println(order);
+
+		return new ResponseEntity<String>(order.toString(), HttpStatus.OK);
+	}
+
+	@RequestMapping("/contactuspage")
+	public String contactUsPage() {
+
+		return "contactus";
+	}
+
+	@RequestMapping("/contactus")
+	public ResponseEntity<String> contactUs(HttpServletRequest r) {
+
+		String name = r.getParameter("name");
+		String email = r.getParameter("email");
+		String massage = r.getParameter("massage");
+
+		if (name.equals(null) || email.equals(null) || massage.equals(null)) {
+			return new ResponseEntity<String>("success", HttpStatus.BAD_REQUEST);
+		}
+		try {
+			eservice.sendEmail("sachinsingh959414@gmail.com", "User wants to connect with you",
+					"User " + name + " wants to contact to you \n name= " + name + "\n email= " + email
+							+ " \n massage=  " + massage);
+		} catch (Exception e) {
+			// TODO: handle exception
+			return new ResponseEntity<String>("success", HttpStatus.BAD_REQUEST);
+		}
+
+		System.out.println(" " + name + " " + email + " " + massage);
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+	}
+	
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest r)
+	{
+		r.getSession().removeAttribute("uname");
+		r.getSession().removeAttribute("password");
+		return "welcome";
+	}
+	
 }

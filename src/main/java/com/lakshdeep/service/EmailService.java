@@ -8,6 +8,6 @@ import org.springframework.stereotype.Service;
 
 public interface EmailService {
 
-	public void sendEmail(String To,int otp);
+	public void sendEmail(String To,String sub,String msg);
 
 }

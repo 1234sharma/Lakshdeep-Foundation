@@ -15,11 +15,11 @@ public class EmailServiceImp implements EmailService {
 	@Autowired
 	JavaMailSender javaMailSender;
 
-	public void sendEmail(String to,int otp) {
+	public void sendEmail(String to,String subject,String massage) {
 		SimpleMailMessage msg = new SimpleMailMessage();
 		msg.setTo(to);
-		msg.setSubject("Testing from Spring Boot");
-		msg.setText("Hello World \n Spring Boot Email" +otp);
+		msg.setSubject(subject);
+		msg.setText(massage);
 		javaMailSender.send(msg);
 
 	}

@@ -100,7 +100,8 @@
 
 								success : function(data) {
 
-									alert("registered Succefully")
+									alert("OTP Verified")
+									window.location = "http://localhost:8082/lakshdeep/";
 
 									// Ajax call completed successfully
 									///alert("Form Submited Successfully" + data);

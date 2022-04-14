@@ -166,6 +166,11 @@
 
 
 	<script>
+		$(document).ready(function() {
+
+			$("#foot").removeClass("fixed-bottom");
+		});
+
 		// form submit
 		$("#idform")
 				.submit(
