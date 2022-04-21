@@ -1,5 +1,6 @@
 package com.lakshdeep.serviceImp;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +38,8 @@ public class UserServiceImp implements UserService {
 	public UserRegistrationDetails userLogin(UserRegistrationDetails ur) {
 		// TODO Auto-generated method stub
 		Optional<UserRegistrationDetails> op = userdao.findById(ur.getUname());
-		if(op.isPresent())
-		{
-			if(ur.getPassword().equals(op.get().getPassword()))
-			{
+		if (op.isPresent()) {
+			if (ur.getPassword().equals(op.get().getPassword())) {
 				return op.get();
 			}
 		}
@@ -48,4 +47,27 @@ public class UserServiceImp implements UserService {
 		return null;
 	}
 
+	@Override
+	public List<UserRegistrationDetails> getAllUsers() {
+
+		List<UserRegistrationDetails> users = userdao.findAll();
+
+		return users;
+	}
+
+	@Override
+	public String deleteUserByUsername(String username) {
+		// TODO Auto-generated method stub
+		try
+		{
+		userdao.deleteById(username);
+		return "succes";
+		}catch (Exception e) {
+			// TODO: handle exception
+			return "fail";
+		}
+		
+	}
+	
+	
 }

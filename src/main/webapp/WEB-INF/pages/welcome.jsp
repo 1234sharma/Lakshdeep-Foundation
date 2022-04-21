@@ -14,13 +14,24 @@
 </head>
 <body>
 <%@include file="common/navbar.jsp" %>
+<div class="container text-center">
+</br>
+<h1>hellooooooooo</h1></br>
+<h1>hellooooooooo</h1></br>
+<h1>hellooooooooo</h1></br>
+<h1>hellooooooooo</h1></br>
+<h1>hellooooooooo</h1></br>
+<h1>hellooooooooo</h1></br>
+<h1>hellooooooooo</h1></br>
+<h1>hellooooooooo</h1></br>
+<h1>hellooooooooo</h1></br>
+<h1>hellooooooooo</h1></br>
 
-<h1>hellooooooooo</h1></br>
-<h1>hellooooooooo</h1></br>
-<h1>hellooooooooo</h1></br>
-<h1>hellooooooooo</h1></br>
-<h1>hellooooooooo</h1></br>
-<h1>hellooooooooo</h1></br>
+</div>
 <%@include file="common/commonBottomNavBar.jsp" %>
+
+<script >
+
+</script>
 </body>
 </html>

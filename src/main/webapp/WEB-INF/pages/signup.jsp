@@ -139,7 +139,7 @@
 
 
 			<div class="text-center " style="margin-bottom: 5px">
-				<button type="submit" class="btn btn-success">Sign-Up</button>
+				<button type="submit" class="btn btn-secondary">Sign-Up</button>
 			</div>
 		</form>
 

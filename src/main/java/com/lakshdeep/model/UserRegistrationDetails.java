@@ -23,13 +23,14 @@ public class UserRegistrationDetails implements Serializable {
 	@Id
 	String uname;
 	String password;
+	String role;
 
 	public UserRegistrationDetails() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public UserRegistrationDetails(String fname, String lname, String email, String mobileno, String addr1,
-			String addr2, String state, String city, String pin, String uname, String password) {
+			String addr2, String state, String city, String pin, String uname, String password,String role) {
 		super();
 		this.fname = fname;
 		this.lname = lname;
@@ -42,6 +43,8 @@ public class UserRegistrationDetails implements Serializable {
 		this.pin = pin;
 		this.uname = uname;
 		this.password = password;
+		this.role=role;
+		
 	}
 
 	public String getFname() {
@@ -131,12 +134,22 @@ public class UserRegistrationDetails implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
 
 	@Override
 	public String toString() {
 		return "UserRegistrationDetails [fname=" + fname + ", lname=" + lname + ", email=" + email + ", mobileno="
 				+ mobileno + ", addr1=" + addr1 + ", addr2=" + addr2 + ", state=" + state + ", city=" + city + ", pin="
-				+ pin + ", uname=" + uname + ", password=" + password + "]";
+				+ pin + ", uname=" + uname + ", password=" + password + ", role=" + role + "]";
 	}
+
+	
 
 }

@@ -1,6 +1,8 @@
 package com.lakshdeep.controller;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,11 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lakshdeep.model.UserRegistrationDetails;
@@ -44,6 +48,7 @@ public class UserController {
 	public ResponseEntity<String> signup(@RequestBody UserRegistrationDetails ur, ModelAndView mv) {
 
 		System.out.println(ur);
+		ur.setRole("user");
 		UserRegistrationDetails userdetails = userservice.adduserDetails(ur);
 		if (userdetails == null) {
 
@@ -64,7 +69,7 @@ public class UserController {
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/signinpage")
+	@GetMapping("/signinpage")
 	public String signinPage() {
 
 		return "usersignin";
@@ -92,12 +97,15 @@ public class UserController {
 
 		String uname = r.getParameter("uname");
 		String psw = r.getParameter("password");
+		UserRegistrationDetails user = userservice.getUserByUserName(uname);
+		String role = user.getRole();
 		String otp = r.getParameter("otp");
 		String verotp = String.valueOf(r.getSession().getAttribute("otp"));
 
 		if (otp.equals(verotp)) {
 			r.getSession().setAttribute("uname", uname);
 			r.getSession().setAttribute("password", psw);
+			r.getSession().setAttribute("role", role);
 
 			return new ResponseEntity<String>("Loginned succesfully", HttpStatus.OK);
 		}
@@ -147,9 +155,8 @@ public class UserController {
 			return new ResponseEntity<String>("success", HttpStatus.BAD_REQUEST);
 		}
 		try {
-			eservice.sendEmail("sachinsingh959414@gmail.com", "User wants to connect with you",
-					"User " + name + " wants to contact to you \n name= " + name + "\n email= " + email
-							+ " \n massage=  " + massage);
+			eservice.sendEmail("sachinsingh959414@gmail.com", "User wants to connect with you", "User " + name
+					+ " wants to contact to you \n name= " + name + "\n email= " + email + " \n massage=  " + massage);
 		} catch (Exception e) {
 			// TODO: handle exception
 			return new ResponseEntity<String>("success", HttpStatus.BAD_REQUEST);
@@ -158,13 +165,60 @@ public class UserController {
 		System.out.println(" " + name + " " + email + " " + massage);
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
-	
-	@RequestMapping("/logout")
-	public String logout(HttpServletRequest r)
-	{
-		r.getSession().removeAttribute("uname");
-		r.getSession().removeAttribute("password");
-		return "welcome";
+
+	@RequestMapping("/userlistpage")
+	public String userlistpage(HttpServletRequest r) {
+		String username = String.valueOf(r.getSession().getAttribute("uname"));
+		String role = String.valueOf(r.getSession().getAttribute("role"));
+		if (username.equals("") || username == null || !role.equals("admin")) {
+			return "usersignin";
+		}
+
+
+		return "userlistpage";
 	}
 	
+	
+	@RequestMapping("/userlist")
+	public ResponseEntity<List<UserRegistrationDetails>> getAllUsers(HttpServletRequest r) {
+		String username = String.valueOf(r.getSession().getAttribute("uname"));
+		String role = String.valueOf(r.getSession().getAttribute("role"));
+		if (username.equals("") || username == null || !role.equals("admin")) {
+			return new ResponseEntity<List<UserRegistrationDetails>>(new ArrayList<>(), HttpStatus.BAD_REQUEST);
+		}
+
+		List<UserRegistrationDetails> users = userservice.getAllUsers();
+
+		return new ResponseEntity<List<UserRegistrationDetails>>(users, HttpStatus.OK);
+	}
+	
+	
+	
+	@RequestMapping(value = "/deleteuser/{username}",method = RequestMethod.DELETE)
+	public ResponseEntity<String> deleteuser(@PathVariable("username") String username,HttpServletRequest r) {
+
+		String uname = String.valueOf(r.getSession().getAttribute("uname"));
+		String role = String.valueOf(r.getSession().getAttribute("role"));
+		if (uname.equals("") || uname == null || !role.equals("admin")) {
+			return new ResponseEntity<String>("fail", HttpStatus.BAD_REQUEST);
+		}
+
+		System.out.println(username);
+		String ur = userservice.deleteUserByUsername(username);
+		if ((ur.equals("fail"))) {
+			return new ResponseEntity<String>("fail", HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+	}
+
+	
+
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest r) {
+		r.getSession().removeAttribute("uname");
+		r.getSession().removeAttribute("password");
+		r.getSession().removeAttribute("role");
+		return "welcome";
+	}
+
 }

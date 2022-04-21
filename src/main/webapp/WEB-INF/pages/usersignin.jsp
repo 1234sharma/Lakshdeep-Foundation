@@ -15,7 +15,7 @@
 		id="loginpage"
 		style="border: 2px solid red; margin-bottom: 10px; margin-top: 10px; width: 60%; height: 60%;">
 		<div class="text-center" style="font-size: 40px">
-			<b>USER LOGIN</b>
+			<b>LOGIN</b>
 		</div>
 		<div class="container">
 			<form id="idform" action="">
