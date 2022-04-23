@@ -229,6 +229,12 @@ public class UserController {
 		if (username.equals("") || username == null || !role.equals("user")) {
 			return "usersignin";
 		}
+		
+        UserRegistrationDetails user=userservice.getUserByUserName(username);
+        
+        
+		
+		
 		return "assesmentpage";
 	}
 
