@@ -145,9 +145,13 @@ keyframes mymove { 0% {
 
 
 
+
+
 %
 {
 font-sze
+
+
 
 
 
@@ -181,7 +185,11 @@ font-sze
 
 
 
+
+
 20px
+
+
 
 
 
@@ -246,8 +254,7 @@ font-sze
 			if (role.equals("user")) {
 			%>
 			<a href="donationpage"><i class="fas fa-donate"
-				aria-hidden="true"></i>Donate</a>
-		    <a href="scholarshippage"><i
+				aria-hidden="true"></i>Donate</a> <a href="scholarshippage"><i
 				class="fa fa-graduation-cap" aria-hidden="true"></i>Scholarship</a>
 			<%
 			}
@@ -257,6 +264,8 @@ font-sze
 			%>
 			<a href="userlistpage"><i class="fas fa-registered"
 				aria-hidden="true"></i>UserList</a>
+		    <a href="userlistpage"><i class="fa fa-question" aria-hidden="true"></i>Add Question</a>
+
 			<%
 			}
 			%>
