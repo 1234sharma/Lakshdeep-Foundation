@@ -2,6 +2,7 @@ package com.lakshdeep.controller;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -21,7 +22,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.lakshdeep.model.AssesmentHistory;
 import com.lakshdeep.model.UserRegistrationDetails;
+import com.lakshdeep.service.AssesmentHistoryService;
 import com.lakshdeep.service.EmailService;
 import com.lakshdeep.service.UserService;
 import com.razorpay.Order;
@@ -37,6 +40,8 @@ public class UserController {
 	UserService userservice;
 	@Autowired
 	EmailService eservice;
+	@Autowired
+	AssesmentHistoryService assesmentserv;
 
 	@RequestMapping(value = "/signuppage", method = RequestMethod.GET)
 	public String signuppage() {
@@ -144,7 +149,7 @@ public class UserController {
 		return "contactus";
 	}
 
-	@RequestMapping("/contactus")
+	@RequestMapping(value = "/contactus", method = RequestMethod.POST)
 	public ResponseEntity<String> contactUs(HttpServletRequest r) {
 
 		String name = r.getParameter("name");
@@ -174,11 +179,9 @@ public class UserController {
 			return "usersignin";
 		}
 
-
 		return "userlistpage";
 	}
-	
-	
+
 	@RequestMapping("/userlist")
 	public ResponseEntity<List<UserRegistrationDetails>> getAllUsers(HttpServletRequest r) {
 		String username = String.valueOf(r.getSession().getAttribute("uname"));
@@ -191,11 +194,9 @@ public class UserController {
 
 		return new ResponseEntity<List<UserRegistrationDetails>>(users, HttpStatus.OK);
 	}
-	
-	
-	
-	@RequestMapping(value = "/deleteuser/{username}",method = RequestMethod.DELETE)
-	public ResponseEntity<String> deleteuser(@PathVariable("username") String username,HttpServletRequest r) {
+
+	@RequestMapping(value = "/deleteuser/{username}", method = RequestMethod.DELETE)
+	public ResponseEntity<String> deleteuser(@PathVariable("username") String username, HttpServletRequest r) {
 
 		String uname = String.valueOf(r.getSession().getAttribute("uname"));
 		String role = String.valueOf(r.getSession().getAttribute("role"));
@@ -210,7 +211,6 @@ public class UserController {
 		}
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
-
 
 	@RequestMapping("/scholarshippage")
 	public String scholarshippage(HttpServletRequest r) {
@@ -229,13 +229,30 @@ public class UserController {
 		if (username.equals("") || username == null || !role.equals("user")) {
 			return "usersignin";
 		}
+
+		UserRegistrationDetails user = userservice.getUserByUserName(username);
+		AssesmentHistory attempt = assesmentserv.getassesmentHistoryByUsername(user.getUname());
+		if(attempt!=null)
+		{
+			return "scholarshippage";
+		}
 		
-        UserRegistrationDetails user=userservice.getUserByUserName(username);
-        
-        
-		
+	AssesmentHistory ah=assesmentserv.saveAssesmentHistory(new AssesmentHistory(user.getUname(), user.getFname(),new Date().toLocaleString()));
 		
 		return "assesmentpage";
+	}
+
+	@RequestMapping(value = "/checkattempt", method = RequestMethod.POST)
+	public ResponseEntity<String> checkAssesmentAttemps(HttpServletRequest r) {
+
+		String uname = r.getParameter("username");
+		System.out.println(uname);
+		AssesmentHistory attempt = assesmentserv.getassesmentHistoryByUsername(uname);
+		if(attempt!=null)
+		{
+			return new ResponseEntity<String>("false",HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<String>("true",HttpStatus.OK);
 	}
 
 	@RequestMapping("/logout")
