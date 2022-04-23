@@ -211,7 +211,26 @@ public class UserController {
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
 
-	
+
+	@RequestMapping("/scholarshippage")
+	public String scholarshippage(HttpServletRequest r) {
+		String username = String.valueOf(r.getSession().getAttribute("uname"));
+		String role = String.valueOf(r.getSession().getAttribute("role"));
+		if (username.equals("") || username == null || !role.equals("user")) {
+			return "usersignin";
+		}
+		return "scholarshippage";
+	}
+
+	@RequestMapping("/startassesment")
+	public String startAssesment(HttpServletRequest r) {
+		String username = String.valueOf(r.getSession().getAttribute("uname"));
+		String role = String.valueOf(r.getSession().getAttribute("role"));
+		if (username.equals("") || username == null || !role.equals("user")) {
+			return "usersignin";
+		}
+		return "assesmentpage";
+	}
 
 	@RequestMapping("/logout")
 	public String logout(HttpServletRequest r) {

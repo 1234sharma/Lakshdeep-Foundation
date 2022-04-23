@@ -141,9 +141,17 @@ keyframes mymove { 0% {
 
 
 
+
+
+
+
 %
 {
 font-sze
+
+
+
+
 
 
 
@@ -169,7 +177,15 @@ font-sze
 
 
 
+
+
+
+
 20px
+
+
+
+
 
 
 
@@ -229,8 +245,10 @@ font-sze
 			<%
 			if (role.equals("user")) {
 			%>
-			<a href="donationpage"><i class="fa fa-sign-in"
+			<a href="donationpage"><i class="fas fa-donate"
 				aria-hidden="true"></i>Donate</a>
+		    <a href="scholarshippage"><i
+				class="fa fa-graduation-cap" aria-hidden="true"></i>Scholarship</a>
 			<%
 			}
 			%>
@@ -242,7 +260,7 @@ font-sze
 			<%
 			}
 			%>
-			<a href="logout"><i class="fas fa-registered" aria-hidden="true"></i>LogOut</a>
+			<a href="logout"><i class="fa fa-sign-out" aria-hidden="true"></i>LogOut</a>
 			<%
 			} else {
 			%>
