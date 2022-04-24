@@ -27,5 +27,12 @@ public class AdminController {
 			return new ResponseEntity<String>("Fail",HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<String>("pass",HttpStatus.OK);
-        }
+
+	}
+	@RequestMapping(value = "/addQuestionForm", method = RequestMethod.GET)
+	public String addQuestionForm() {
+		System.out.println("yessssss");
+		return "adminquestionform";
+	}
 }
+
