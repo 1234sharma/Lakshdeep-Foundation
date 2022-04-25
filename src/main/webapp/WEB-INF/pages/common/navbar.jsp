@@ -265,7 +265,7 @@ font-sze
 			<a href="userlistpage"><i class="fas fa-registered"
 				aria-hidden="true"></i>UserList</a>
 		    <a href="addQuestionForm"><i class="fa fa-question" aria-hidden="true"></i>Add Question</a>
-
+			 <a href="examresultpage"><i class="fa fa-question" aria-hidden="true"></i>Exam Result</a>
 			<%
 			}
 			%>

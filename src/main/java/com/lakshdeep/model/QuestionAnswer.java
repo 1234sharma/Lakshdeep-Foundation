@@ -27,15 +27,24 @@ public class QuestionAnswer {
 		// TODO Auto-generated constructor stub
 	}
 
-	public QuestionAnswer(String question, String option1, String option2, String option3, String option4,
-			String answer) {
+	public QuestionAnswer(int questionno, String question, String option1, String option2, String option3,
+			String option4, String answer) {
 		super();
+		this.questionno = questionno;
 		Question = question;
 		this.option1 = option1;
 		this.option2 = option2;
 		this.option3 = option3;
 		this.option4 = option4;
 		this.answer = answer;
+	}
+
+	public int getQuestionno() {
+		return questionno;
+	}
+
+	public void setQuestionno(int questionno) {
+		this.questionno = questionno;
 	}
 
 	public String getQuestion() {
@@ -88,8 +97,9 @@ public class QuestionAnswer {
 
 	@Override
 	public String toString() {
-		return "QuestionAnswer [Question=" + Question + ", option1=" + option1 + ", option2=" + option2 + ", option3="
-				+ option3 + ", option4=" + option4 + ", answer=" + answer + "]";
+		return "QuestionAnswer [questionno=" + questionno + ", Question=" + Question + ", option1=" + option1
+				+ ", option2=" + option2 + ", option3=" + option3 + ", option4=" + option4 + ", answer=" + answer + "]";
 	}
 
+	
 }

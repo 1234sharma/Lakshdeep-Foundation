@@ -1,27 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
-
 </head>
 <body>
 
-	<%@include file="common/navbar.jsp"%>
+<%@include file="common/navbar.jsp"%>
 	<div class="container mt-5">
 		<table table table-striped table-bordered table-hover id="myTable"
 			border="1">
 			<thead>
 				<tr>
-					<th>First Name</th>
-					<th>Last Name</th>
-					<th>Gmail</th>
-					<th>MobileNo</th>
-					<th>City</th>
-					<th>State</th>
-					<th>Username</th>
+					<th>UserName</th>
+					<th>Marks</th>
+					<th>OutOf</th>
+					<th>Date</th>
 					<th>Action</th>
 				</tr>
 			</thead>
@@ -43,22 +39,20 @@
 
 		function tabledataload() {
 			$.ajax({
-				url : "/lakshdeep/userlist",
+				url : "/lakshdeep/examresultlist",
 				type : 'GET',
 				success : function(data) {
 					console.log(data);
 					for (let i = 0; i < data.length; i++) {
 						$('#myTable').DataTable().row.add(
 								[
-										data[i].fname,
-										data[i].lname,
-										data[i].email,
-										data[i].mobileno,
-										data[i].city,
-										data[i].state,
-										data[i].uname,
+										data[i].username,
+										data[i].marks,
+										data[i].outof,
+										data[i].date,
+									
 										'<button  class="btn btn-danger" onclick="deleteuser(`'
-												+ data[i].uname
+												+ data[i].username
 												+ '`)">DELETE</button>' ])
 								.draw();
 
@@ -75,7 +69,7 @@
 			alert("calling delete for username " + val);
 
 			$.ajax({
-				url : "/lakshdeep/deleteuser/" + val,
+				url : "/lakshdeep/deleteresult/" + val,
 				type : 'DELETE',
 				success : function(data) {
 					alert(data.status)
@@ -91,5 +85,6 @@
 
 		}
 	</script>
+
 </body>
 </html>

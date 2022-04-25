@@ -3,9 +3,10 @@ package com.lakshdeep.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.lakshdeep.model.QuestionAnswer;
+import com.lakshdeep.model.ExamScore;
 
 @Repository
-public interface QuestionanswerDao extends JpaRepository<QuestionAnswer,Integer> {
+public interface ExamScoreDao extends JpaRepository<ExamScore,String>  {
+	
 
 }
